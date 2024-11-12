@@ -1,8 +1,8 @@
 # EX01 Developing a Simple Webserver
-## Date:31.10.23
+## Date:
 
 ## AIM:
-To develop a simple webserver to serve html pages.
+To develop a simple webserver to serve html pages and display the configuration details of laptop.
 
 ## DESIGN STEPS:
 ### Step 1: 
@@ -22,74 +22,78 @@ Testing the webserver.
 
 ## PROGRAM:
 ```
-<!DOCTYPE html>
+from http.server import HTTPServer,BaseHTTPRequestHandler
+
+content='''
+<!doctype html>
 <html>
 <head>
-<title>My webserver</title>
-<style>
-    body{
-
-        background-image:url('img.jpg');
-    }
-</style>
+<title> My Web Server</title>
 </head>
 <body>
-<h1 align="center"><b>Top 5 Revenue Companies</b></h1><br>
-    <table align="center" border="15" cellpadding="15" cellspacing="3">
+<h1><center>My Laptop Configuration Details</center></h1>
+   <table border="1" cellpadding="10" align="center">
         <tr>
-            <th>Company name</th>
-            <th>Location</th>
-            <th>Yearly turn over</th>
+            <th bgcolor="yellow">Specification</th>
+            <th bgcolor="red">Details</th>
         </tr>
         <tr>
-            <td><ul>
-                <li>Infosis</li>
-                <br>
-                <li>HCL</li>
-                <br>
-                <li>Wipro</li>
-                <br>
-                <li>Redington India Ltd</li>
-                <br>
-                <li>Tech Mahindra Limited</li>
-            </ul></td>
-            <td>
-                <ul>
-                    <li>chennai</li>
-                    <br>
-                    <li>chennai</li>
-                    <br>
-                    <li>chennai</li>
-                    <br>
-                    <li>chennai</li>
-                    <br>
-                    <li>chennai</li>
-                </ul>
-            </td>
-            <td>
-                <ul>
-                    <li>123162</li>
-                    <br>
-                    <li>12335402</li>
-                    <br>
-                    <li>41655262</li>
-                    <br>
-                    <li>4523122</li>
-                    <br>
-                    <li>74562162</li>
-                </ul>
-            </td>
+            <td>Model</td>
+            <td>Lenovo ThinkPad i5</td>
+        </tr>
+        <tr>
+            <td>Processor</td>
+            <td>Intel Core i5</td>
+        </tr>
+        <tr>
+            <td>RAM</td>
+            <td>8GB</td>
+        </tr>
+        <tr>
+            <td>Storage</td>a
+            <td>256GB SSD</td>
+        </tr>
+        <tr>
+            <td>Graphics</td>
+            <td>Integrated Intel UHD Graphics</td>
+        </tr>
+        <tr>
+            <td>Display</td>
+            <td>14-inch FHD (1920 x 1080)</td>
+        </tr>
+        <tr>
+            <td>Operating System</td>
+            <td>Windows 10</td>
+        </tr>
+        <tr>
+            <td>Colours available</td>
+            <td>Black,White,Grey</td>
         </tr>
     </table>
 </body>
 </html>
+'''
 
+class MyServer(BaseHTTPRequestHandler):
+    def do_GET(self):
+        print("Get request received...")
+        self.send_response(200) 
+        self.send_header("content-type", "text/html")       
+        self.end_headers()
+        self.wfile.write(content.encode())
+
+print("This is my webserver") 
+server_address =('',8000)
+httpd = HTTPServer(server_address,MyServer)
+httpd.serve_forever()
 ```
 
-
 ## OUTPUT:
-![Alt text](<Screenshot (67).png>) 
-![Alt text](<Screenshot (68).png>)
+![image](https://github.com/user-attachments/assets/899a96e6-b50e-4420-bd56-4ae77633af61)
+
+
+![image](https://github.com/user-attachments/assets/03834a12-bf2c-4495-8ff6-7302c16a1aaf)
+
 
 
 ## RESULT:
